@@ -6,7 +6,7 @@ An end-to-end data pipeline that extracts daily stock price data via API, loads 
 
 ---
 ## Star Schema
-<img src="https://github.com/Yam-ghub/Snowflake-Datawarehouse-Project/blob/main/img/stock_dw_star_schema.png" alt="star_schema" width="1200">
+<img src="https://github.com/Yam-ghub/Snowflake-Datawarehouse-Project/blob/main/img/stock_dw_star_schema.png" alt="star_schema" width="800">
 
 ## Architecture
 
