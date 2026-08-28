@@ -5,6 +5,22 @@ An end-to-end data pipeline that extracts daily stock price data via API, loads 
 **Stack:** Python (yfinance, pandas) · Snowflake (stages, COPY INTO, SQL) · python-dotenv
 
 ---
+## Star Schema
+```
+   DIM_TICKER                    DIM_DATE
+      (descriptive,            (descriptive,
+       slowly changing)         static)
+            │                         │
+            │         1-to-many       │
+            └───────────┬─────────────┘
+                         │
+                         ▼
+              FACT_STOCK_PRICES
+          (numeric measures, high volume,
+           one row per ticker per day)
+```
+
+---
 
 ## Architecture
 
@@ -45,10 +61,11 @@ Analytical queries (05_analysis.sql)
 └── star_schema_diagram.svg
 ```
 ## Key findings
-- **Volatility by sector:** [e.g. "Energy showed the highest volatility of the three sectors, with a standard deviation of X% in daily returns, compared to Y% for Tech."]
-  <img src="https://github.com/Yam-ghub/Snowflake-Datawarehouse-Project/blob/main/img/volatility.png" alt="Pipeline Architecture" width="1200">
-- **Moving average trend:** [what you noticed comparing daily close price against the 7-day moving average — smoothing effects, any notable divergence]
-- **Volume:** [which sector traded the most volume, and any hypothesis why]
+- **Volatility by sector:** "Finance showed the highest volatility of the three sectors, with the largest day-to-day price swings (stddev of X% vs Y% for Tech). Despite this, JPM didn't post the biggest overall gains — suggesting Finance stocks moved sharply without necessarily trending further than other sectors.
+  <img src="https://github.com/Yam-ghub/Snowflake-Datawarehouse-Project/blob/main/img/volatility.png" alt="Volatility" width="1200">
+- **Moving average trend:** Five of six tickers spent the majority of trading days above their 7-day moving average, reflecting a broad uptrend across the dataset, with GS and XOM posting the strongest gains (+41% and +42%). MSFT was the exception — it closed the year flat, spending under half its days above the moving average, indicating a choppier, directionless pattern compared to the rest of the portfolio."
+- **Volume:** Tech accounted for the highest trading volume of the three sectors at ~X shares, roughly Y% more than Finance and Z% more than Energy — consistent with Tech names (AAPL, MSFT) typically having larger public float and higher retail trading interest than Energy or Finance names
+  <img src="https://github.com/Yam-ghub/Snowflake-Datawarehouse-Project/blob/main/img/total_trading_volume_per_sector.png" alt="total-volume per sector" width="1200">
 
 ## Notable issue & fix
 
