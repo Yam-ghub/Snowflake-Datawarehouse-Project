@@ -56,6 +56,8 @@ def load_to_snowflake(csv_filename):
             COPY INTO STOCK_DW.RAW.stock_prices_raw
             FROM @STOCK_DW.RAW.stock_stage/stock_prices_raw.csv.gz
             FILE_FORMAT = STOCK_DW.RAW.csv_format
+            ON_ERROR = 'CONTINUE'
+            FORCE = TRUE;
         """)
 
         print("Load complete.")
