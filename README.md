@@ -46,6 +46,7 @@ Analytical queries (05_analysis.sql)
 ```
 ## Key findings
 - **Volatility by sector:** [e.g. "Energy showed the highest volatility of the three sectors, with a standard deviation of X% in daily returns, compared to Y% for Tech."]
+  <img src="https://github.com/Yam-ghub/Snowflake-Datawarehouse-Project/blob/main/img/volatility.png" alt="Pipeline Architecture" width="1200">
 - **Moving average trend:** [what you noticed comparing daily close price against the 7-day moving average — smoothing effects, any notable divergence]
 - **Volume:** [which sector traded the most volume, and any hypothesis why]
 
