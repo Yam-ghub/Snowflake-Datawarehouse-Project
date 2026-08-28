@@ -1,0 +1,4 @@
+yfinance
+pandas
+snowflake-connector-python
+python-dotenvty
