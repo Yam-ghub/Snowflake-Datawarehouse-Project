@@ -6,22 +6,24 @@ An end-to-end data pipeline that extracts daily stock price data via API, loads 
 Stack: Python (yfinance, pandas) · Snowflake (stages, COPY INTO, SQL) · python-dotenv
 
 Architecture
+```
 yfinance API
      │
      ▼
 Python (ingestion.py) — extract
      │
      ▼
-Snowflake internal stage (compressed CSV)
-     │  PUT / COPY INTO
+Snowflake internal stage (compressed CSV) PUT / COPY INTO
+     │  
      ▼
-RAW schema — landing table, minimal transformation
-     │  SQL (03_staging.sql)
+RAW schema — landing table, minimal transformation SQL (03_staging.sql)
+     │  
      ▼
-STAGING schema — deduplicated, validated
-     │  SQL (04_analytics.sql)
+STAGING schema — deduplicated, validated SQL (04_analytics.sql)
+     │  
      ▼
 ANALYTICS schema — star schema (fact + dimensions)
      │
      ▼
 Analytical queries (05_analysis.sql)
+```
