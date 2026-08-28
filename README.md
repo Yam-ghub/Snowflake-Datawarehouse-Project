@@ -65,3 +65,36 @@ While loading data into Snowflake, `COPY INTO` reported success (`Load complete`
 - **Orchestration** (Airflow, Dagster, or a scheduled Snowflake Task) instead of a manually triggered script.
 - **`MERGE` instead of `CREATE OR REPLACE`** for the staging table, to avoid unnecessary full rebuilds.
 - **Automated data quality tests** (e.g. dbt tests or custom SQL assertions) run as part of the pipeline, not just ad hoc validation queries.
+
+## Setup & run
+
+1. Clone the repo and install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+
+2. Copy `.env.example` to `.env` and fill in your Snowflake credentials:
+   ```
+   SNOWFLAKE_USER=
+   SNOWFLAKE_PASSWORD=
+   SNOWFLAKE_ACCOUNT=
+   SNOWFLAKE_WAREHOUSE=STOCK_WH
+   SNOWFLAKE_DATABASE=STOCK_DW
+   SNOWFLAKE_SCHEMA=RAW
+   ```
+
+3. Run the SQL setup scripts **in order** in Snowsight:
+   ```
+   01_setup.sql → 02_raw.sql
+   ```
+
+4. Run the pipeline:
+   ```
+   python ingestion.py
+   ```
+   This extracts one year of daily price data for 6 tickers across 3 sectors (Tech, Finance, Energy), stages the CSV, and loads it into `RAW.stock_prices_raw`.
+
+5. Run the remaining SQL scripts in order to build staging and analytics:
+   ```
+   03_staging.sql → 04_analytics.sql → 05_analysis.sql
+   ```
