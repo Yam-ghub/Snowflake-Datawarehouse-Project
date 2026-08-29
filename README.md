@@ -70,7 +70,7 @@ While loading data into Snowflake, `COPY INTO` reported success (`Load complete`
 
 1. Clone the repo and install dependencies:
    ```
-   pip install -r requirements.txt
+   install the libraries in requirement.txt
    ```
 
 2. Copy `.env.example` to `.env` and fill in your Snowflake credentials:
